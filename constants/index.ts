@@ -1,7 +1,9 @@
+import { Interview } from "@/types";
 import { CreateAssistantDTO } from "@vapi-ai/web/dist/api";
 import { z } from "zod";
 
 export const mappings = {
+  "circleci":"circleci",
   "react.js": "react",
   reactjs: "react",
   react: "react",
@@ -26,7 +28,10 @@ export const mappings = {
   firebase: "firebase",
   docker: "docker",
   kubernetes: "kubernetes",
-  aws: "aws",
+  aws: "amazonwebservices",
+  pandas: "pandas",
+  python: "python",
+  tensorflow: "tensorflow",
   azure: "azure",
   gcp: "gcp",
   digitalocean: "digitalocean",
@@ -58,6 +63,7 @@ export const mappings = {
   backbonejs: "backbone",
   backbone: "backbone",
   nestjs: "nestjs",
+  go: "go",
   graphql: "graphql",
   "graph ql": "graphql",
   apollo: "apollo",
@@ -95,6 +101,7 @@ export const mappings = {
   netlify: "netlify",
   vercel: "vercel",
   "aws amplify": "amplify",
+  "terraform": "terraform",
 };
 
 export const interviewer: CreateAssistantDTO = {
@@ -136,7 +143,7 @@ Be professional, yet warm and welcoming:
 Use official yet friendly language.
 Keep responses concise and to the point (like in a real voice interview).
 Avoid robotic phrasing—sound natural and conversational.
-Answer the candidate’s questions professionally:
+Answer the candidate's questions professionally:
 
 If asked about the role, company, or expectations, provide a clear and relevant answer.
 If unsure, redirect the candidate to HR for more details.
@@ -202,4 +209,73 @@ export const interviewCovers = [
   "/telegram.png",
   "/tiktok.png",
   "/yahoo.png",
+];
+
+export const dummyInterviews: Interview[] = [
+  {
+    id: "1",
+    userId: "user1",
+    role: "Frontend Developer",
+    type: "Technical",
+    techstack: ["React", "TypeScript", "Next.js", "Tailwind CSS"],
+    level: "Junior",
+    questions: ["What is React?"],
+    finalized: false,
+    createdAt: "2024-03-15T10:00:00Z",
+  },
+  {
+    id: "2",
+    userId: "user1",
+    role: "Full Stack Developer",
+    type: "Mixed",
+    techstack: ["Node.js", "Express", "MongoDB", "React"],
+    level: "Senior",
+    questions: ["What is Node.js?"],
+    finalized: false,
+    createdAt: "2024-03-14T15:30:00Z",
+  },
+  {
+    id: "3",
+    userId: "user2",
+    role: "Backend Developer",
+    type: "Technical",
+    techstack: ["Go", "PostgreSQL", "Docker", "Kubernetes"],
+    level: "Mid",
+    questions: ["Explain the benefits of using Go for backend development."],
+    finalized: false,
+    createdAt: "2024-03-13T12:45:00Z",
+  },
+  {
+    id: "4",
+    userId: "user3",
+    role: "Mobile Developer",
+    type: "Technical",
+    techstack: ["React Native", "TypeScript", "Expo", "MMKV"],
+    level: "Junior",
+    questions: ["How does React Native differ from native mobile development?"],
+    finalized: false,
+    createdAt: "2024-03-12T09:20:00Z",
+  },
+  {
+    id: "5",
+    userId: "user4",
+    role: "DevOps Engineer",
+    type: "Behavioral",
+    techstack: ["AWS", "Terraform", "CircleCI", "Docker"],
+    level: "Senior",
+    questions: ["How do you ensure high availability in cloud architecture?"],
+    finalized: false,
+    createdAt: "2024-03-11T14:10:00Z",
+  },
+  {
+    id: "6",
+    userId: "user5",
+    role: "Data Scientist",
+    type: "Mixed",
+    techstack: ["Python", "TensorFlow", "Pandas", "MySQL"],
+    level: "Mid",
+    questions: ["What are the differences between supervised and unsupervised learning?"],
+    finalized: false,
+    createdAt: "2024-03-10T17:05:00Z",
+  },
 ];
