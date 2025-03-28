@@ -23,23 +23,21 @@ export function getRandomInterviewCover() {
 
 export function normaliseName(tech: string) {
   const key = tech.toLowerCase().replace(/\.js$/, "").replace(/\s+/g, "");
-  console.log(mappings[key as keyof typeof mappings])
   return mappings[key as keyof typeof mappings]
 }
 
 const checkIconExists = async (url: string) => {
   try {
-    const response = await fetch(url, { method: "HEAD" });
-    return response.ok; // Returns true if the icon exists
+    const response = await fetch(url, { method: "HEAD" })
+    return response.ok
   } catch {
-    return false;
+    return false
   }
 };
 
 export const getTechLogos = async (techArray: string[]) => {
   const logoURLs = techArray.map((tech) => {
     const normalized = normaliseName(tech);
-    console.log(normalized)
     return {
       tech,
       url: `${techIconBaseURL}/${normalized}/${normalized}-${normalized === "circleci" ? "plain" : (normalized === "amazonwebservices" ? "plain-wordmark" : "original")}.svg`,
