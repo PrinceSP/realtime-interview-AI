@@ -2,9 +2,7 @@
 
 import { auth, db } from "@/firebase/admin";
 import { SignInParams, SignUpParams, User } from "@/types";
-import { openAsBlob } from "fs";
 import { cookies } from "next/headers";
-import { toast } from "sonner";
 
 const ONE_DAY = 60 * 60 * 24
 
