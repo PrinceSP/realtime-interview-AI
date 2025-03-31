@@ -37,41 +37,19 @@ const AuthForm = ({ type }: { type: FormType }) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       if (type === "sign-up") {
-        // const { name, email, password } = values
-        // const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
+        const { name, email, password } = values
+        const userCredentials = await createUserWithEmailAndPassword(auth, email, password)
         
-        // const result = await signUp({
-        //   uid: userCredentials.user.uid, name: name!, email, password
-        // })
-        
-        // if (!result.success) {
-        //   toast.error(result.message)
-        //   return;
-        // }
-        
-        // toast.success("Account created successfully. Please sign in.")
-        // router.push("/sign-in");
-        const { name, email, password } = values;
-
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
         const result = await signUp({
-          uid: userCredential.user.uid,
-          name: name!,
-          email,
-          password,
-        });
-
+          uid: userCredentials.user.uid, name: name!, email, password
+        })
+        
         if (!result.success) {
-          toast.error(result.message);
+          toast.error(result.message)
           return;
         }
-
-        toast.success("Account created successfully. Please sign in.");
+        
+        toast.success("Account created successfully. Please sign in.")
         router.push("/sign-in");
       }
       else {
@@ -91,7 +69,6 @@ const AuthForm = ({ type }: { type: FormType }) => {
         router.push("/");
       }
     } catch (error) {
-      // console.log(error)
       toast.error("Wrong username or password!")
     }
   }
