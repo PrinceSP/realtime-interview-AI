@@ -1,4 +1,4 @@
-'use server'
+"use server"
 
 import { auth, db } from "@/firebase/admin";
 import { SignInParams, SignUpParams, User } from "@/types";

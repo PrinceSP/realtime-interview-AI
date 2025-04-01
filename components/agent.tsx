@@ -62,24 +62,22 @@ const Agent = ({ userName, type, userId }: AgentProps) => {
     }
   }, [])
 
-  // useEffect(() => {
-  //   if (callStatus === CallStatus.FINISHED) router.push("/")
-  // }, [type, userId, callStatus, messages])
-
-  console.log([type, userId, callStatus, messages])
+  useEffect(() => {
+    if (callStatus === CallStatus.FINISHED) router.push("/")
+  }, [type, userId, callStatus, messages])
 
   const handleCall = async () => {
     setCallStatus(CallStatus.CONNECTING)
-
     await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
       variableValues: {
         username: userName,
         userid: userId,
       },
     });
+    console.log(true)
   }
 
-  const handleDisconnect = async () => {
+  const handleDisconnect = () => {
     setCallStatus(CallStatus.FINISHED)
     vapi.stop()
   }
@@ -114,26 +112,18 @@ const Agent = ({ userName, type, userId }: AgentProps) => {
         </div>
       }
       <div className="w-full flex justify-center">
-        {callStatus !== "ACTIVE" ? (
-          <button className="relative btn-call" onClick={() => handleCall()}>
-            <span
-              className={cn(
-                "absolute animate-ping rounded-full opacity-75",
-                callStatus !== "CONNECTING" && "hidden"
-              )}
-            />
-
-            <span className="relative">
-              {callStatus === "INACTIVE" || callStatus === "FINISHED"
-                ? "Call"
-                : ". . ."}
+        {callStatus !== "ACTIVE" ?
+          <button className="relative btn-call" onClick={handleCall}>
+            <span className={cn("absolute animate-ping rounded-full opacity-75", callStatus !== "CONNECTING" && "hidden")} />
+            <span>
+              {callInactiveOrFinished ? "Call" : ". . ."}
             </span>
           </button>
-        ) : (
-          <button className="btn-disconnect" onClick={() => handleDisconnect()}>
+          :
+          <button className="btn-disconnect" onClick={handleDisconnect}>
             End
           </button>
-        )}
+        }
       </div>
     </>
   )
