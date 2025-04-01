@@ -1,5 +1,4 @@
 "use client"
-
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
@@ -63,9 +62,11 @@ const Agent = ({ userName, type, userId }: AgentProps) => {
     }
   }, [])
 
-  useEffect(() => {
-    if (callStatus === CallStatus.FINISHED) router.push("/")
-  }, [type, userId, callStatus, messages])
+  // useEffect(() => {
+  //   if (callStatus === CallStatus.FINISHED) router.push("/")
+  // }, [type, userId, callStatus, messages])
+
+  console.log([type, userId, callStatus, messages])
 
   const handleCall = async () => {
     setCallStatus(CallStatus.CONNECTING)
@@ -113,18 +114,26 @@ const Agent = ({ userName, type, userId }: AgentProps) => {
         </div>
       }
       <div className="w-full flex justify-center">
-        {callStatus !== "ACTIVE" ?
-          <button className="relative btn-call" onClick={handleCall}>
-            <span className={cn("absolute animate-ping rounded-full opacity-75", callStatus !== "CONNECTING" && "hidden")} />
-            <span>
-              {callInactiveOrFinished ? "Call" : ". . ."}
+        {callStatus !== "ACTIVE" ? (
+          <button className="relative btn-call" onClick={() => handleCall()}>
+            <span
+              className={cn(
+                "absolute animate-ping rounded-full opacity-75",
+                callStatus !== "CONNECTING" && "hidden"
+              )}
+            />
+
+            <span className="relative">
+              {callStatus === "INACTIVE" || callStatus === "FINISHED"
+                ? "Call"
+                : ". . ."}
             </span>
           </button>
-          :
-          <button className="btn-disconnect" onClick={handleDisconnect}>
+        ) : (
+          <button className="btn-disconnect" onClick={() => handleDisconnect()}>
             End
           </button>
-        }
+        )}
       </div>
     </>
   )

@@ -2,17 +2,7 @@ import { generateText } from "ai"
 import { google } from "@ai-sdk/google"
 import { db } from "@/firebase/admin"
 import { getRandomInterviewCover } from "@/lib/utils"
-
-export async function GET() {
-  return Response.json({
-    success: true,
-    data: "Thank You!"
-  },
-    {
-      status: 200
-    }
-  )
-}
+import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
   const { type, role, level, techstack, amount, userid } = await request.json()
@@ -49,17 +39,12 @@ export async function POST(request: Request) {
 
     await db.collection("interviews").add(interview)
 
-    return Response.json({
-      success: true
-    }, { status: 200 })
+    return NextResponse.json({ success: true }, { status: 200 })
   } catch (error) {
-    return Response.json({
-      success: false,
-      error
-    },
-      {
-        status: 500
-      }
-    )
+    return NextResponse.json({ success: false, error }, { status: 500 })
   }
+}
+
+export async function GET() {
+  return NextResponse.json({ success: true, data: "Thank You!" }, { status: 200 })
 }
