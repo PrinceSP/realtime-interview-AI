@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import { AgentProps } from '@/types'
 import { vapi } from "@/lib/vapi.sdk";
 import { interviewer } from '@/constants'
+import { createFeedback } from '@/lib/actions/interview.action'
 
 enum CallStatus {
   ACTIVE = 'ACTIVE',
@@ -20,7 +21,7 @@ interface SavedMessage {
 
 }
 
-const Agent = ({ userName, type, userId, questions, interviewId }: AgentProps) => {
+const Agent = ({ userName, type, userId, questions, interviewId, feedbackId }: AgentProps) => {
   const router = useRouter()
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE)
@@ -63,11 +64,14 @@ const Agent = ({ userName, type, userId, questions, interviewId }: AgentProps) =
     }
   }, [])
 
+
   const handleGenerateFeedback = async (messages: SavedMessage[]) => {
-    const { success, id } = {
-      success: true,
-      id: "feedback-id"
-    }
+    const { success, feedbackId: id } = await createFeedback({
+      interviewId: interviewId!,
+      userId: userId!,
+      transcript: messages,
+      feedbackId,
+    })
 
     if (success && id) {
       router.push(`/interview/${interviewId}/feedback`)
@@ -99,7 +103,7 @@ const Agent = ({ userName, type, userId, questions, interviewId }: AgentProps) =
       let formattedQuestions = ''
 
       if (questions) {
-        formattedQuestions = questions.map(item => `- ${item}`).join("\n  ")
+        formattedQuestions = questions.map(item => `- ${item}`).join("\n")
       }
 
       await vapi.start(interviewer, {
