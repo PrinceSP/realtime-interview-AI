@@ -28,3 +28,9 @@ export async function getLatestInterview(params: GetLatestInterviewsParams): Pro
     ...item.data()
   })) as Interview[]
 }
+
+export async function getInterviewById(id: string): Promise<Interview | null> {
+  const interviewData = await db.collection("interviews").doc(id).get()
+  
+  return interviewData.data() as Interview | null
+}
