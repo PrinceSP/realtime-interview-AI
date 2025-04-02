@@ -6,7 +6,7 @@ import { Button } from './ui/button'
 import Link from 'next/link'
 import TechIcons from './techIcons'
 
-const InterviewCard = ({ interviewId, createdAt, userId, role, techstack, type }: InterviewCardProps) => {
+const InterviewCard = ({ id, createdAt, userId, role, techstack, type }: InterviewCardProps) => {
   const feedback = null as Feedback | null
   const normalise = /mix/gi.test(type) ? "Mixed" : type
 
@@ -36,7 +36,7 @@ const InterviewCard = ({ interviewId, createdAt, userId, role, techstack, type }
         <div className="flex justify-between">
           <TechIcons techStack={techstack} />
           <Button className="btn-primary">
-            <Link href={feedback ? `/interview/${interviewId}/feedback` : `/interview/${interviewId}/`}>
+            <Link href={feedback ? `/interview/${id}/feedback` : `/interview/${id}/`}>
               {feedback ? "Check Feedback" : "View Interview"}
             </Link>
           </Button>
