@@ -5,9 +5,10 @@ import { getRandomInterviewCover, localDefault } from '@/lib/utils'
 import { Button } from './ui/button'
 import Link from 'next/link'
 import TechIcons from './techIcons'
+import { getFeedbackById } from '@/lib/actions/interview.action'
 
-const InterviewCard = ({ id, createdAt, userId, role, techstack, type }: InterviewCardProps) => {
-  const feedback = null as Feedback | null
+const InterviewCard = async ({ id, createdAt, userId, role, techstack, type }: InterviewCardProps) => {
+  const feedback = userId && id ? await getFeedbackById({ interviewId: id, userId }) : null
   const normalise = /mix/gi.test(type) ? "Mixed" : type
 
   return (
