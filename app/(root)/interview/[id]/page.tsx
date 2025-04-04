@@ -18,7 +18,7 @@ const Page = async ({ params }: RouteParams) => {
   return (
     <>
       <div className="flex flex-row gap-4 justify-between">
-        <div className="flex flex-row gap-4 items-center mx-sm:flexfd-col">
+        <div className="flex flex-row gap-4 items-center mx-sm:flex-col">
           <div className="flex flex-row gap-4 items-center">
             <Image src={getRandomInterviewCover()} alt="text logo" width={40} height={40} className="rounded-full object-cover size-[40px]" />
             <h3 className="capitalize">{interview.role}</h3>
