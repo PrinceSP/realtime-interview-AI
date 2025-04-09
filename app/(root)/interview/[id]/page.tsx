@@ -5,7 +5,6 @@ import { redirect } from "next/navigation"
 import { getRandomInterviewCover, getTechLogos } from "@/lib/utils"
 import TechIcons from "@/components/techIcons"
 import Agent from "@/components/agent"
-import { userAgent } from "next/server"
 import { currentUser } from "@/lib/actions/auth.action"
 
 const Page = async ({ params }: RouteParams) => {
